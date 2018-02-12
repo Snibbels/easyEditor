@@ -1,10 +1,21 @@
-class Normal_Control{
+export default class Normal_Control{
     element:HTMLElement
+    command:string;
 
-    constructor(private command:string, icon:string){
+    constructor(command:string, icon:string){
+        this.command = command;
+        let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+        svg.setAttribute("viewBox", "0 0 24 24");
+        svg.style.height = "24px";
+        
+        let path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        path.setAttribute("d", icon);
+        
         this.element = document.createElement("button");
-        this.element.innerHTML = icon;
-        this.element.onclick = this.trigger;
+        this.element.onmousedown = this.trigger.bind(this);
+        
+        svg.appendChild(path);
+        this.element.appendChild(svg);
     }
 
     trigger(){

@@ -1,13 +1,14 @@
-class Select_Control{
+export default class Select_Control{
     element:HTMLSelectElement
 
     constructor(private command:string, values:string[]){
         this.element = document.createElement("select");
-        this.element.onselect = this.trigger;
+        this.element.onchange = this.trigger.bind(this);
         
         for(let value of values){
             let temp_element = document.createElement("option");
             temp_element.value = value;
+            temp_element.innerHTML = value;
             this.element.appendChild(temp_element);
         }
     }
