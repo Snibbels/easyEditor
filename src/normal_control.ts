@@ -1,4 +1,4 @@
-class Command_Only_Control{
+class Normal_Control{
     element:HTMLElement
 
     constructor(private command:string, icon:string){

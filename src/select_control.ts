@@ -1,4 +1,4 @@
-class Combo_Box_Control{
+class Select_Control{
     element:HTMLSelectElement
 
     constructor(private command:string, values:string[]){
