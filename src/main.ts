@@ -4,6 +4,8 @@ import Interactive_Control from './interactive_control';
 import Select_Control from './select_control';
 
 let controls:any = [];
+let initial_commands:any = [];
+
 for (let data of raw_control){
     switch (data.type) {
         case 'normal':
@@ -15,12 +17,19 @@ for (let data of raw_control){
         case 'select':
             controls.push(new Select_Control(data.command, data.values));
             break;
+        default:
+            initial_commands.push(data.command);
     }
 }
 
 window.onload = e => {
     var toolbar = document.getElementById("toolbar");
-    for (let control of controls){
+
+    for(let command of initial_commands){
+        document.execCommand(command);
+    }
+
+    for(let control of controls){
         toolbar.appendChild(control.element);
     }
 };

@@ -6,7 +6,7 @@ interface raw_control {
     command:string;
     icon?:string;
     values?:string[];
-    interaction?:()=>Promise<string>;
+    interaction?:(e?:any)=>Promise<string>;
 }
 
 let raw_controls:raw_control[] = [
@@ -21,7 +21,10 @@ let raw_controls:raw_control[] = [
     {type:"normal", icon: icons.justify_full, command:"justifyFull"},
     {type:"normal", icon: icons.ordered_list, command:"insertOrderedList"},
     {type:"normal", icon: icons.unordered_list, command:"insertUnorderedList"},
-    {type:"interactive", icon: icons.fontcolor, command:"foreColor", interaction:()=>Color_Picker.show()}
+    {type:"interactive", icon: icons.forecolor, command:"foreColor", interaction:(e:any)=>Color_Picker.show(e)},
+    {type:"interactive", icon: icons.backcolor, command:"backColor", interaction:(e:any)=>Color_Picker.show(e)},
+    {type:"select", command:"fontSize", values:["12px", "24px", "36px"]},
+    {type:"select", command:"fontName", values:["Arial", "Helvetica", "Garamond"]}
 ];
 
 export default raw_controls;

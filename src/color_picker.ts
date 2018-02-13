@@ -9,37 +9,28 @@ export default class Color_Picker{
     static element:HTMLElement;
     static promises:Promise<string>[];
     static active:boolean = false;
+    static field_size = 2;
 
-    static show():Promise<string>{
+
+
+    static show(event:MouseEvent):Promise<string>{
         if(this.active) return;
-        
+    
         this.active = true;
+        this.create_closing_pane();
 
-        /*style*/
         this.element = document.createElement('div');
-        this.element.classList.add('color-picker');
-        this.element.style.width = 1.4*Math.sqrt(this.colors.length) + "em";
-        this.element.style.backgroundColor = "white";
-        this.element.style.border = "1px solid gray";
-        this.element.style.borderRadius = "4px";
-        /*end style*/
+        this.apply_style_to_color_picker_element(event);
 
         this.promises = [];
         document.body.appendChild(this.element);
         
         for(let color of this.colors){
             let temp_element = document.createElement('span');
-            temp_element.classList.add('color-field');
 
-            /*style*/            
+            temp_element.classList.add('color-field');
             temp_element.style.backgroundColor = color;
-            temp_element.style.display = "inline-block";
-            temp_element.style.width = "0.875em";
-            temp_element.style.height = "0.875em";
-            temp_element.style.margin = "0.125em";
-            temp_element.style.border = "1px solid lightgray";
-            temp_element.style.borderRadius = "4px";
-            /*end style */
+            this.apply_style_to_color_field_element(temp_element);
 
             this.promises.push(new Promise(resolve => {
                 temp_element.onmousedown = (e) => {
@@ -51,6 +42,54 @@ export default class Color_Picker{
             
             this.element.appendChild(temp_element);
         }
+
         return Promise.race(this.promises);
+    }
+
+    private static apply_style_to_color_field_element(element:HTMLElement){
+        element.style.display = "inline-block";
+        element.style.width = 0.9 * this.field_size + "em";
+        element.style.height = 0.9 * this.field_size + "em";
+        element.style.margin = 0.05 * this.field_size + "em";
+        element.style.outline = "1px solid lightgray";
+        element.style.borderRadius = "1px";
+    }
+
+    private static apply_style_to_color_picker_element(event:MouseEvent){
+        this.element.classList.add('color-picker');
+        this.element.style.width = this.field_size*1.2*Math.sqrt(this.colors.length) + "em";
+        this.element.style.backgroundColor = "white";
+        this.element.style.border = "1px solid lightgray";
+        this.element.style.borderRadius = "4px";
+        this.element.style.justifyContent = "center";
+
+        let calling_element = <HTMLElement> event.currentTarget;
+        let y = parseInt(<any>calling_element.offsetTop) + parseInt(<any>calling_element.offsetHeight);
+        let x = parseInt(<any>calling_element.offsetLeft);
+
+        this.element.style.position = "fixed";
+        this.element.style.top = y + "px";
+        this.element.style.left = x + "px";
+        this.element.style.zIndex = "100";
+        
+    }
+
+    private static create_closing_pane(){
+        let closing_pane = document.createElement("div");
+        closing_pane.style.position = "fixed";
+        closing_pane.style.top = "0";
+        closing_pane.style.left = "0";
+        closing_pane.style.bottom = "0";
+        closing_pane.style.right = "0";
+        closing_pane.style.zIndex = "10";
+        closing_pane.style.opacity = "0.5";
+
+        closing_pane.onclick = (e)=>{
+            this.active = false;
+            document.body.removeChild(closing_pane);
+            document.body.removeChild(this.element);
+        }
+
+        document.body.appendChild(closing_pane);
     }
 }
