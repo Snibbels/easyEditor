@@ -15,9 +15,18 @@ export default class Normal_Control{
         
         this.element = document.createElement("button");
         this.element.onmousedown = this.trigger.bind(this);
+        this.apply_style_to_element();
         
         svg.appendChild(path);
         this.element.appendChild(svg);
+    }
+
+    private apply_style_to_element(){
+        if(!this.element) return;
+
+        this.element.style.border = "none";
+        this.element.style.backgroundColor = "transparent";
+        this.element.style.padding = "5px";
     }
 
     trigger(){
