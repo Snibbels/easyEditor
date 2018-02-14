@@ -1,0 +1,1 @@
+export let css = '#easyToolbar{ display: flex; flex-wrap: wrap; }';

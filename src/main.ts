@@ -2,6 +2,7 @@ import raw_control from './res/controls';
 import Normal_Control from './normal_control';
 import Interactive_Control from './interactive_control';
 import Select_Control from './select_control';
+import {css} from './res/style'
 
 class easyEditor{
     static controls:any = [];
@@ -11,8 +12,10 @@ class easyEditor{
 
     static init(element:HTMLElement, toolbar?:HTMLElement){
         if(!!this.element) {this.exit();}
+
         this.create_toolbar();
         element.setAttribute("contenteditable", "true");
+        this.add_stylesheet();
         
         if(!toolbar){
             element.parentElement.insertBefore(this.toolbar, element);
@@ -39,6 +42,15 @@ class easyEditor{
     }
 
     private static add_stylesheet(){
+        var style:any = document.createElement('style');
+
+        if (style.styleSheet) {
+            style.styleSheet.cssText = css;
+        } else {
+            style.appendChild(document.createTextNode(css));
+        }
+
+        document.getElementsByTagName('head')[0].appendChild(style);
     }
 
     private static create_toolbar(){
