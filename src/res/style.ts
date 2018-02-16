@@ -1,1 +1,1 @@
-export let css = '#easyToolbar{ display: flex; flex-wrap: wrap; }';
+export let css = '#easyToolbar{ display: flex; flex-wrap: wrap; } img{width: 50%}';
