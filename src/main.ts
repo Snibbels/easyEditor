@@ -65,7 +65,7 @@ class easyEditor{
                     this.controls.push(new Interactive_Control(data.command, data.interaction, data.icon));
                     break;
                 case 'select':
-                    this.controls.push(new Select_Control(data.command, data.values));
+                    this.controls.push(new Select_Control(data.command, data.values, data.overwrite));
                     break;
                 default:
                     this.initial_commands.push(data.command);

@@ -1,9 +1,9 @@
 export default class Select_Control{
     element:HTMLSelectElement
 
-    constructor(private command:string, values:string[]){
+    constructor(private command:string, values:string[], private overwrite:(value:string)=>void){
         this.element = document.createElement("select");
-        this.element.onchange = this.trigger.bind(this);
+        this.element.onclick = this.trigger.bind(this);
         
         for(let value of values){
             let temp_element = document.createElement("option");
@@ -14,6 +14,11 @@ export default class Select_Control{
     }
 
     trigger(){
+        if(!!this.overwrite){
+            this.overwrite(this.element.value);
+            return;
+        }
+
         document.execCommand(this.command, undefined, this.element.value);
     }
 }
