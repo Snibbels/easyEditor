@@ -1,6 +1,7 @@
 import icons from './icons'
 import Color_Picker from '../color_picker';
 import Image_Inserter from '../image_inserter';
+import * as Utils from './Utils';
 
 interface raw_control {
     type:string;
@@ -8,6 +9,7 @@ interface raw_control {
     icon?:string;
     values?:string[];
     interaction?:(e?:any)=>Promise<string>;
+    overwrite?:(value?:string)=>void
 }
 
 let raw_controls:raw_control[] = [
@@ -25,7 +27,7 @@ let raw_controls:raw_control[] = [
     {type:"interactive", icon: icons.forecolor, command:"foreColor", interaction:(e:any)=>Color_Picker.show(e)},
     {type:"interactive", icon: icons.backcolor, command:"backColor", interaction:(e:any)=>Color_Picker.show(e)},
     {type:"interactive", icon: icons.image, command:"insertImage", interaction:(e:any)=>Image_Inserter.get_file().then(Image_Inserter.get_uri)},
-    {type:"select", command:"fontSize", values:["12px", "24px", "36px"]},
+    {type:"select", command:"fontSize", values:["8px", "12px", "16px", "20px", "24px", "36px", "54px", "72px"], overwrite:Utils.set_font_size},
     {type:"select", command:"fontName", values:["Arial", "Helvetica", "Garamond"]}
 ];
 
