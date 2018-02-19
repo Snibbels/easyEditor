@@ -22,11 +22,9 @@ export function set_font_size(size:string){
 function wrap_selection(el:HTMLElement, sel?:Selection){
     let selection = !!sel? sel : window.getSelection();
 
-    let range = sel.getRangeAt(0).cloneRange();
-    range.surroundContents(el);
-    sel.removeAllRanges();
-    sel.addRange(range);
-    sel.collapseToEnd();
+    let range = selection.getRangeAt(0).cloneRange();
+    el.appendChild(range.extractContents());
+    range.insertNode(el);
 }
 
 function get_top_containing_element(s?:Selection):HTMLElement {
