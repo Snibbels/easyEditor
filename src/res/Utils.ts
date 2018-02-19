@@ -39,5 +39,5 @@ function get_top_containing_element(s?:Selection):HTMLElement {
 }
 
 function delete_span_elements_from_html_string(text:string):string{
-    return text.replace(/<[/]?span( style=\"font-size: )?[0-9]*(px;\")?>/g, '');
+    return text.replace(/<[/]?span( style=\"font-size: )?[0-9]*((px|rem);\")?>/g, '');
 }
