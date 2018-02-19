@@ -67,6 +67,12 @@ class easyEditor{
                 case 'select':
                     this.controls.push(new Select_Control(data.command, data.values, data.overwrite));
                     break;
+                case 'separator':
+                    let separator = document.createElement('span');
+                    separator.style.border = "1px solid lightgray";
+                    separator.style.margin = "0 4px";
+                    this.controls.push({element:separator});
+                    break;
                 default:
                     this.initial_commands.push(data.command);
             }
