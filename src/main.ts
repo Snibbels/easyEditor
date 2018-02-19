@@ -16,6 +16,10 @@ class easyEditor{
         this.create_toolbar();
         element.setAttribute("contenteditable", "true");
         this.add_stylesheet();
+
+        for(let initial_command of this.initial_commands){
+            document.execCommand(initial_command);
+        }
         
         if(!toolbar){
             element.parentElement.insertBefore(this.toolbar, element);
