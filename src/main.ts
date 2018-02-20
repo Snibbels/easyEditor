@@ -84,6 +84,7 @@ class easyEditor{
 
         this.toolbar = document.createElement("div");
         this.toolbar.id = "easyToolbar"
+        this.toolbar.style.marginBottom = "1em";
 
         for(let control of this.controls){
             this.toolbar.appendChild(control.element);
