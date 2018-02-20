@@ -1,19 +1,19 @@
-export function set_font_size(size:string){
+export function set_format(attribute:any, value:string){
     if (window.getSelection) {
         let sel = window.getSelection();
 
         if (sel.rangeCount) {
             let container = get_top_containing_element(sel);
             
-            if(container.nodeName == "SPAN"){
-                container.style.fontSize = size;
-                container.innerHTML = delete_span_elements_from_html_string(container.innerHTML);
+            if(container.nodeName == "SPAN" && container.innerText == sel.toString()){
+                container.style[attribute] = value;
+                remove_style_from_children(attribute, container);
             } else {
                 let span = document.createElement('span');
-                span.style.fontSize = size;
+                span.style[attribute] = value;
 
                 wrap_selection(span, sel);
-                span.innerHTML = delete_span_elements_from_html_string(span.innerHTML);
+                remove_style_from_children(attribute, span);
             }
         }
     }
@@ -36,6 +36,12 @@ function get_top_containing_element(s?:Selection):HTMLElement {
     return <HTMLElement> element;
 }
 
-function delete_span_elements_from_html_string(text:string):string{
-    return text.replace(/<[/]?span( style=\"font-size: )?[0-9]*((px|rem);\")?>/g, '');
+function remove_style_from_children(style_attribute:any, element:HTMLElement){
+    let children = (element.querySelectorAll('span'));
+
+    let i, child;
+    for(i=0, child = children[i]; i<children.length; i++){
+        child.style[style_attribute] = "inherit";
+        remove_style_from_children(style_attribute, child);
+    }
 }
