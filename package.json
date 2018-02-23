@@ -9,7 +9,8 @@
   "dependencies": {
     "debundle": "^0.5.4",
     "ts-promise": "^1.0.0",
-    "ts-loader": "^3.5.0"
+    "ts-loader": "^3.5.0",
+    "typescript" : "^2.7.2"
   },
   "devDependencies": {},
   "scripts": {

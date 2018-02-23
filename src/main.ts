@@ -3,6 +3,7 @@ import Normal_Control from './normal_control';
 import Interactive_Control from './interactive_control';
 import Select_Control from './select_control';
 import {css} from './res/style'
+import i18n from './res/i18n';
 
 class easyEditor{
     static controls:any = [];
@@ -16,6 +17,7 @@ class easyEditor{
         this.create_toolbar();
         element.setAttribute("contenteditable", "true");
         this.add_stylesheet();
+        console.log(i18n.message);
 
         for(let initial_command of this.initial_commands){
             document.execCommand(initial_command);
