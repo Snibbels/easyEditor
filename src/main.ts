@@ -64,13 +64,13 @@ class easyEditor{
         for (let data of raw_control){
             switch (data.type) {
                 case 'normal':
-                    this.controls.push(new Normal_Control (data.command, data.icon));
+                    this.controls.push(new Normal_Control (data.command, data.icon, data.tooltip));
                     break;
                 case 'interactive':
-                    this.controls.push(new Interactive_Control(data.command, data.interaction, data.overwrite, data.icon));
+                    this.controls.push(new Interactive_Control(data.command, data.interaction, data.overwrite, data.icon, data.tooltip));
                     break;
                 case 'select':
-                    this.controls.push(new Select_Control(data.command, data.values, data.overwrite));
+                    this.controls.push(new Select_Control(data.command, data.values, data.overwrite, data.tooltip));
                     break;
                 case 'separator':
                     let separator = document.createElement('span');

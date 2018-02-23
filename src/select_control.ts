@@ -1,7 +1,7 @@
 export default class Select_Control{
     element:HTMLSelectElement
 
-    constructor(private command:string, values:string[], private overwrite:(value:string)=>void){
+    constructor(private command:string, values:string[], private overwrite?:(value:string)=>void, tooltip?:string){
         this.element = document.createElement("select");
         let placeholder = document.createElement("option");
         this.element.onclick = e => {
@@ -12,6 +12,7 @@ export default class Select_Control{
         placeholder.setAttribute('disabled', 'true');
         placeholder.setAttribute('selected', 'true');
         this.element.appendChild(placeholder);
+        if(!!tooltip) {this.element.title = tooltip;}
 
         for(let value of values){
             if(!placeholder.value){
