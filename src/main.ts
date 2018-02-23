@@ -17,7 +17,6 @@ class easyEditor{
         this.create_toolbar();
         element.setAttribute("contenteditable", "true");
         this.add_stylesheet();
-        console.log(i18n.message);
 
         for(let initial_command of this.initial_commands){
             document.execCommand(initial_command);
