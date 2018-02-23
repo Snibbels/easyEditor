@@ -1,0 +1,32 @@
+{
+  "name": "easyeditor",
+  "version": "1.0.0",
+  "description": "An easy to use wysiwyg editor ",
+  "main": "webpack.config.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "debundle": "^0.5.4",
+    "ts-promise": "^1.0.0",
+    "ts-loader": "^3.5.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Snibbels/easyEditor.git"
+  },
+  "keywords": [
+    "wysiwyg",
+    "editor"
+  ],
+  "author": "Malte Fillmer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Snibbels/easyEditor/issues"
+  },
+  "homepage": "https://github.com/Snibbels/easyEditor#readme"
+}
