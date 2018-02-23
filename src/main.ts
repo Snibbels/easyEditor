@@ -4,6 +4,7 @@ import Interactive_Control from './interactive_control';
 import Select_Control from './select_control';
 import {css} from './res/style'
 import i18n from './res/i18n';
+import Context_Menu from './context_menu';
 
 class easyEditor{
     static controls:any = [];
@@ -32,6 +33,7 @@ class easyEditor{
 
     static exit(){
         this.element.removeAttribute("contenteditable");
+        this.attach_toolbar()
         this.toolbar.parentElement.removeChild(this.toolbar);
         this.element = undefined;
     }
@@ -44,6 +46,21 @@ class easyEditor{
     static set_content(content: string){
         if(!this.element) return;
         this.element.innerHTML = content;
+    }
+
+    static detach_toolbar(){
+        this.toolbar.parentElement.removeChild(this.toolbar);
+        this.element.oncontextmenu = this.show_context_toolbar.bind(this);
+    }
+
+    static attach_toolbar(){
+        this.element.oncontextmenu = undefined;
+        this.element.parentElement.insertBefore(this.toolbar, this.element);
+    }
+
+    private static show_context_toolbar(event:MouseEvent){
+        let cm = new Context_Menu(event, this.toolbar);
+        cm.element.style.width = this.toolbar.offsetWidth/2 + "px";
     }
 
     private static add_stylesheet(){
@@ -97,3 +114,5 @@ class easyEditor{
     export let exit = easyEditor.exit.bind(easyEditor);
     export let get_content = easyEditor.get_content.bind(easyEditor);
     export let set_content = easyEditor.set_content.bind(easyEditor);
+    export let detach_toolbar = easyEditor.detach_toolbar.bind(easyEditor);
+    export let attach_toolbar = easyEditor.attach_toolbar.bind(easyEditor);

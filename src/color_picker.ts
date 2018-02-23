@@ -10,10 +10,10 @@ export default class Color_Picker{
     static promises:Promise<string>[];
     static active:boolean = false;
     static field_size = 2;
-
-
+    
 
     static show(event:MouseEvent):Promise<string>{
+        event.stopPropagation();
         if(this.active) return;
     
         this.active = true;

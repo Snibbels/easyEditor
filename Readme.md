@@ -17,4 +17,6 @@ command|description
 `easyEditor.exit()`| exits edit mode, removes toolbar
 `easyEditor.get_content()`| returns content as HTML
 `easyEditor.set_content(content:string)`| sets content of editor to `content`
+`easyEditor.attach_toolbar()`| moves toolbar above editable element
+`easyEditor.detach_toolbar()`| moves toolbar to the contextmenu
 
