@@ -87,7 +87,9 @@ export default class Color_Picker{
         closing_pane.onclick = (e)=>{
             this.active = false;
             document.body.removeChild(closing_pane);
-            document.body.removeChild(this.element);
+            if(!!this.element.parentElement){
+                this.element.parentElement.removeChild(this.element);
+            }
         }
 
         document.body.appendChild(closing_pane);
