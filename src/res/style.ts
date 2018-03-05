@@ -1,1 +1,1 @@
-export let css = '#easyToolbar{ display: flex; flex-wrap: wrap; } img{max-width:100%;}';
+export let css = '#easyToolbar{ display: flex; flex-wrap: wrap; } img{max-width:100%;} button[active=true]{color:royalblue}';

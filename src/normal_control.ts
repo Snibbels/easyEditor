@@ -1,8 +1,10 @@
-export default class Normal_Control{
+import Format_Observer from "./format_observer";
+
+export default class Normal_Control implements Format_Observer{
     element:HTMLElement
     command:string;
 
-    constructor(command:string, icon:string,tooltip?:string){
+    constructor(command:string, icon:string,tooltip:string,private style_property?:string,private eval_string?:string){
         this.command = command;
         let svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
         svg.setAttribute("viewPort", "0 0 24 24");
@@ -22,6 +24,14 @@ export default class Normal_Control{
         this.element.appendChild(svg);
     }
 
+    set active(b:boolean){
+        this.element.setAttribute('active', String(b));
+    }
+
+    get active():boolean{
+        return this.element.getAttribute('active') == "true";
+    }
+
     private apply_style_to_element(){
         if(!this.element) return;
 
@@ -32,6 +42,14 @@ export default class Normal_Control{
 
     trigger(){
         document.execCommand(this.command);
+    }
+
+    handle_selection_change(style:CSSStyleDeclaration){
+        if(!this.style_property || !this.eval_string) return;
+
+        let prop = style.getPropertyValue(this.style_property);
+        prop += this.eval_string;
+        this.active = eval(prop);
     }
 }
 
