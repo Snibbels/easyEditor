@@ -1,4 +1,5 @@
 import Format_Observer from "./format_observer";
+import Format_Observable from "./format_observable";
 
 export default class Normal_Control implements Format_Observer{
     element:HTMLElement
@@ -22,6 +23,10 @@ export default class Normal_Control implements Format_Observer{
         
         svg.appendChild(path);
         this.element.appendChild(svg);
+
+        if(!!style_property && !!eval_string){
+            Format_Observable.add_listener(this);
+        }
     }
 
     set active(b:boolean){

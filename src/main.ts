@@ -5,6 +5,7 @@ import Select_Control from './select_control';
 import {css} from './res/style'
 import i18n from './res/i18n';
 import Context_Menu from './context_menu';
+import Format_Observable from './format_observable';
 
 class easyEditor{
     static controls:any = [];
@@ -22,6 +23,8 @@ class easyEditor{
         for(let initial_command of this.initial_commands){
             document.execCommand(initial_command);
         }
+
+        element.onblur = Format_Observable.trigger.bind(Format_Observable);
         
         if(!toolbar){
             element.parentElement.insertBefore(this.toolbar, element);
@@ -35,6 +38,7 @@ class easyEditor{
         this.element.removeAttribute("contenteditable");
         this.attach_toolbar()
         this.toolbar.parentElement.removeChild(this.toolbar);
+        this.element.onfocus = null;
         this.element = undefined;
     }
 
