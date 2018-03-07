@@ -11,7 +11,9 @@ interface raw_control {
     values?:string[];
     interaction?:(e?:any)=>any;
     overwrite?:(value?:string)=>void
-    tooltip?:string
+    tooltip?:string,
+    style_property?:string,
+    eval_string?:string,
 }
 
 let raw_controls:raw_control[] = [
@@ -21,15 +23,15 @@ let raw_controls:raw_control[] = [
     {type:"separator"},
     {type:"normal", icon: icons.indent, command: "indent", tooltip: i18n.tooltips.indent},
     {type:"normal", icon: icons.outdent, command: "outdent", tooltip: i18n.tooltips.outdent},
-    {type:"normal", icon: icons.bold, command: "bold", tooltip: i18n.tooltips.bold},
-    {type:"normal", icon: icons.italic, command: "italic", tooltip: i18n.tooltips.italic},
-    {type:"normal", icon: icons.underline, command: "underline", tooltip: i18n.tooltips.underline},
-    {type:"normal", icon: icons.strike_through, command: "strikeThrough", tooltip: i18n.tooltips.strikethrough},
+    {type:"normal", icon: icons.bold, command: "bold", tooltip: i18n.tooltips.bold, style_property:"font-weight", eval_string:"700"},
+    {type:"normal", icon: icons.italic, command: "italic", tooltip: i18n.tooltips.italic, style_property: "font-style", eval_string: "italic"},
+    {type:"normal", icon: icons.underline, command: "underline", tooltip: i18n.tooltips.underline, style_property:"text-decoration", eval_string:"underline"},
+    {type:"normal", icon: icons.strike_through, command: "strikeThrough", tooltip: i18n.tooltips.strikethrough, style_property:"text-decoration", eval_string:"line-through"},
     {type:"separator"},
-    {type:"normal", icon: icons.justify_left, command:"justifyLeft", tooltip: i18n.tooltips.align_left},
-    {type:"normal", icon: icons.justify_right, command:"justifyRight", tooltip: i18n.tooltips.align_right},
-    {type:"normal", icon: icons.justify_center, command:"justifyCenter", tooltip: i18n.tooltips.align_center},
-    {type:"normal", icon: icons.justify_full, command:"justifyFull", tooltip: i18n.tooltips.justify},
+    {type:"normal", icon: icons.justify_left, command:"justifyLeft", tooltip: i18n.tooltips.align_left, style_property: "text-align", eval_string: "(left|start)"},
+    {type:"normal", icon: icons.justify_right, command:"justifyRight", tooltip: i18n.tooltips.align_right, style_property: "text-align", eval_string: "right"},
+    {type:"normal", icon: icons.justify_center, command:"justifyCenter", tooltip: i18n.tooltips.align_center, style_property: "text-align", eval_string: "center"},
+    {type:"normal", icon: icons.justify_full, command:"justifyFull", tooltip: i18n.tooltips.justify, style_property: "text-align", eval_string: "justify"},
     {type:"separator"},
     {type:"normal", icon: icons.ordered_list, command:"insertOrderedList", tooltip: i18n.tooltips.insert_ordered_list},
     {type:"normal", icon: icons.unordered_list, command:"insertUnorderedList", tooltip: i18n.tooltips.insert_unordered_list},
