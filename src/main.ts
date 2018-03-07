@@ -103,7 +103,7 @@ class easyEditor{
                     this.controls.push(new Interactive_Control(data.command, data.interaction, data.overwrite, data.icon, data.tooltip));
                     break;
                 case 'select':
-                    this.controls.push(new Select_Control(data.command, data.values, data.overwrite, data.tooltip));
+                    this.controls.push(new Select_Control(data.command, data.values, data.overwrite, data.tooltip, data.style_property));
                     break;
                 case 'separator':
                     let separator = document.createElement('span');

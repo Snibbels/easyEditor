@@ -1,7 +1,10 @@
-export default class Select_Control{
+import Format_Observer from "./format_observer";
+import Format_Observable from "./format_observable";
+
+export default class Select_Control implements Format_Observer{
     element:HTMLSelectElement
 
-    constructor(private command:string, values:string[], private overwrite?:(value:string)=>void, tooltip?:string){
+    constructor(private command:string, values:string[], private overwrite:(value:string)=>void, tooltip:string,private style_property:string){
         this.element = document.createElement("select");
         let placeholder = document.createElement("option");
         this.element.onclick = e => {
@@ -24,6 +27,9 @@ export default class Select_Control{
             temp_element.innerHTML = value;
             this.element.appendChild(temp_element);
         }
+        if(!!this.style_property){
+            Format_Observable.add_listener(this);
+        }
     }
 
     trigger(){
@@ -33,6 +39,12 @@ export default class Select_Control{
         }
 
         document.execCommand(this.command, undefined, this.element.value);
+    }
+
+    handle_selection_change(style:CSSStyleDeclaration){
+        let prop = style.getPropertyValue(this.style_property);
+        console.log(prop);
+        this.element.value = prop;
     }
 }
 

@@ -43,8 +43,8 @@ let raw_controls:raw_control[] = [
     {type:"normal", icon: icons.unlink, command:"unlink", tooltip: i18n.tooltips.unlink},
     {type:"separator"},
     {type:"select", command:"formatBlock", values:["h1", "h2","h3","h4","h5","h6","p","dl"], tooltip: i18n.tooltips.formatblock},
-    {type:"select", command:"fontSize", values:['1rem','2rem','3rem','4rem','5rem','6rem','7rem','8rem','9rem',"8px", "12px", "16px", "20px", "24px", "36px", "54px", "72px"], overwrite: value=> Utils.set_format('fontSize', value), tooltip: i18n.tooltips.fontsize},
-    {type:"select", command:"fontName", values:["Arial", "Helvetica", "Garamond"], tooltip: i18n.tooltips.font},
+    {type:"select", command:"fontSize", values:['1rem','2rem','3rem','4rem','5rem','6rem','7rem','8rem','9rem',"8px", "12px", "16px", "20px", "24px", "36px", "54px", "72px"], overwrite: value=> Utils.set_format('fontSize', value), tooltip: i18n.tooltips.fontsize, style_property:"font-size"},
+    {type:"select", command:"fontName", values:["Arial", "Helvetica", "Garamond"], tooltip: i18n.tooltips.font, style_property:"font-family"},
     {command:"enableObjectResizing"},
     //{command:"styleWithCSS"},
 ];
