@@ -12,6 +12,7 @@ class easyEditor{
     static initial_commands:any = [];
     static toolbar:HTMLElement;
     static element:HTMLElement
+    private static events_to_listen_for:string[] = ['click', 'blur', 'keydown'];
 
     static init(element:HTMLElement, toolbar?:HTMLElement){
         if(!!this.element) {this.exit();}
@@ -19,13 +20,12 @@ class easyEditor{
         this.create_toolbar();
         element.setAttribute("contenteditable", "true");
         this.add_stylesheet();
+        this.set_selection_change_listener(element);
 
         for(let initial_command of this.initial_commands){
             document.execCommand(initial_command);
         }
 
-        element.onblur = Format_Observable.trigger.bind(Format_Observable);
-        
         if(!toolbar){
             element.parentElement.insertBefore(this.toolbar, element);
         } else {
@@ -36,9 +36,9 @@ class easyEditor{
 
     static exit(){
         this.element.removeAttribute("contenteditable");
-        this.attach_toolbar()
+        this.attach_toolbar();
+        this.remove_selection_change_listener();
         this.toolbar.parentElement.removeChild(this.toolbar);
-        this.element.onfocus = null;
         this.element = undefined;
     }
 
@@ -60,6 +60,18 @@ class easyEditor{
     static attach_toolbar(){
         this.element.oncontextmenu = undefined;
         this.element.parentElement.insertBefore(this.toolbar, this.element);
+    }
+
+    private static set_selection_change_listener(element:HTMLElement){
+        for(let event of this.events_to_listen_for){
+            element.addEventListener(event, Format_Observable.trigger.bind(Format_Observable), true);
+        }
+    }
+
+    private static remove_selection_change_listener(){
+        for(let event of this.events_to_listen_for){
+            this.element.removeEventListener(event, Format_Observable.trigger.bind(Format_Observable));
+        }
     }
 
     private static show_context_toolbar(event:MouseEvent){
@@ -85,7 +97,7 @@ class easyEditor{
         for (let data of raw_control){
             switch (data.type) {
                 case 'normal':
-                    this.controls.push(new Normal_Control (data.command, data.icon, data.tooltip));
+                    this.controls.push(new Normal_Control (data.command, data.icon, data.tooltip, data.style_property, data.eval_string));
                     break;
                 case 'interactive':
                     this.controls.push(new Interactive_Control(data.command, data.interaction, data.overwrite, data.icon, data.tooltip));
