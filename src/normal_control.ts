@@ -51,10 +51,9 @@ export default class Normal_Control implements Format_Observer{
 
     handle_selection_change(style:CSSStyleDeclaration){
         if(!this.style_property || !this.eval_string) return;
-
         let prop = style.getPropertyValue(this.style_property);
-        prop += this.eval_string;
-        this.active = eval(prop);
+        console.log(prop, this.eval_string, !!prop.match(new RegExp(this.eval_string)));
+        this.active = !!prop.match(new RegExp(this.eval_string));
     }
 }
 
